@@ -1,0 +1,22 @@
+﻿@model List<CoreDemoApp.Models.AlbumModel>
+@{
+    ViewBag.Title = "Albums";
+}
+<h2>Albums</h2>
+
+
+<div class="row">
+    <div class="col-md-3 padded">Title</div>
+    <div class="col-md-3 padded">Genre</div>
+    <div class="col-md-3 padded">Price</div>
+    <div>&nbsp;</div>
+</div>
+@foreach (var a in Model)
+{
+    <div class="row">
+        <div class="col-md-3 padded">@a.Title</div>
+        <div class="col-md-3 padded">@a.Genre.Name</div>
+        <div class="col-md-3 padded">@a.Price</div>
+        <div>&nbsp;</div>
+    </div>
+}
