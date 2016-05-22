@@ -1,0 +1,26 @@
+﻿@model CoreDemoApp.Models.AlbumModel
+@{
+
+    ViewBag.Title = "Album Details";
+}
+<div>
+    <div>
+        <h2 style="float: left">@Model.Title</h2>
+    </div>
+    <div style="float: right">
+        @*<a asp-controller="Cart" asp-action="Index">View Cart</a>*@
+        Cart
+    </div>
+</div>
+<div style="clear:both"></div>
+<div class="padded">
+        @($"Artist: {Model.Artist.Name}")
+</div>
+<div class="padded">
+    @($"Price - {Model.Price.ToString("c")}")
+</div>
+<div class="padded">
+    Quantity - <select asp-for="Quantity" asp-items="ViewBag.QuantitySelectList"></select>
+    <a id="AddToCart" href="#">Add To Cart</a>
+</div>
+<input type="hidden" id="Id" value="@Model.AlbumId" />

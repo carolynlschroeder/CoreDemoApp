@@ -13,7 +13,7 @@ namespace CoreDemoApp.Repositories
 
         public Album GetAlbum(Guid albumId)
         {
-            return _entities.Album.FirstOrDefault(a => a.AlbumId == albumId);
+            return _entities.Album.Include(a=>a.Artist).FirstOrDefault(a => a.AlbumId == albumId);
         }
 
         public List<Album> GetAlbums()
