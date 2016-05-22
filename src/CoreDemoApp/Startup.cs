@@ -47,6 +47,11 @@ namespace CoreDemoApp
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddMemoryCache();
+            services.AddDistributedMemoryCache();
+
+
+            services.AddSession();
             services.AddMvc();
 
             // Add application services.
@@ -71,6 +76,7 @@ namespace CoreDemoApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseIdentity();
