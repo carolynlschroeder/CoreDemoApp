@@ -1,8 +1,6 @@
 ﻿@using System
 @using System.Collections.Generic
 @using System.Security.Policy
-@using CoreDemoApp.BusinessMethods
-@using Microsoft.AspNet.Http
 @using CoreDemoApp.Models
 <div style="float: right">
     <div style="float: left; padding-top: 15px">
@@ -11,11 +9,11 @@
     <div style="padding: 15px; float: right">
         @{
             int cartItemCount = 0;
-            if (!String.IsNullOrEmpty(Context.Session.GetString("CartItems")))
+            byte[] bytes;
+            var ret = Context.Session.TryGetValue("cartItems", out bytes);
+            if (ret)
             {
-                var cartItems =
-                    (List<CartItemModel>)
-                        SerializationLogic<List<CartItemModel>>.Deserialize(Context.Session.GetString("CartItems"));
+                var cartItems =  CoreDemoApp.BusinessMethods.SerializationLogic<List<CartItemModel>>.Deserialize(bytes);
                 cartItemCount = cartItems.Sum(c => c.Quantity);
             }
         }
@@ -24,7 +22,7 @@
                 @String.Format("Number of Items: {0}", @cartItemCount)&nbsp;
             </div>
             <div style="float: right">
-                <a asp-controller="Cart" asp-action="Index">View Cart</a>
+                <a asp-controller="Order" asp-action="Index">View Cart</a>
             </div>
         </div>
     </div>

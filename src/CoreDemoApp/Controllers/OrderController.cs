@@ -20,7 +20,12 @@ namespace CoreDemoApp.Controllers
             var cartItem = new CartItemModel { AlbumId = id, Quantity = quantity };
             var cartItems = AddCartItem(cartItem);
             PutCartItemsInSession(cartItems);
-            return Json(new { result = "ok" });
+            var numberItems = 0;
+            foreach (var c in cartItems)
+            {
+                numberItems += c.Quantity;
+            }
+            return Json(new { cartItemNumber = numberItems });
         }
 
         private List<CartItemModel> AddCartItem(CartItemModel cartItem)

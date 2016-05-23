@@ -3,17 +3,10 @@
 
     ViewBag.Title = "Album Details";
 }
-<div>
-    <div>
-        <h2 style="float: left">@Model.Title</h2>
-    </div>
-    <div style="float: right">
-        <a asp-controller="Order" asp-action="Index">View Cart</a>
-    </div>
-</div>
+<h2>@Model.Title</h2>
 <div style="clear:both"></div>
 <div class="padded">
-        @($"Artist: {Model.Artist.Name}")
+    @($"Artist: {Model.Artist.Name}")
 </div>
 <div class="padded">
     @($"Price - {Model.Price.ToString("c")}")
@@ -22,7 +15,7 @@
     Quantity - <select asp-for="Quantity" asp-items="ViewBag.QuantitySelectList"></select>
     <a id="AddToCart" href="#">Add To Cart</a>
 </div>
-<input type="hidden" id="Id" value="@Model.AlbumId"/>
+<input type="hidden" id="Id" value="@Model.AlbumId" />
 
 @section scripts{
     <script>
@@ -38,7 +31,8 @@
                 datatype: "json",
                 data: { Id: $("#Id").val(), quantity: $("#Quantity").val() },
                 async: false,
-                success: function () {
+                success: function (data) {
+                    $("#NumberOfItems").html("Number of Items: " + data.cartItemNumber + "&nbsp;");
                 }
             });
         }
