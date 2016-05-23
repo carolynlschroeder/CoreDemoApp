@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreDemoApp.Models;
+using CoreDemoApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemoApp.Controllers
@@ -12,7 +13,27 @@ namespace CoreDemoApp.Controllers
         public IActionResult Index()
         {
             var  cartItems = GetCartItemsFromSession();
-            return View(cartItems);
+            var model = new OrderModel();
+            var orderDetails = new List<OrderDetailsModel>();
+            var repository = new AlbumRepository();
+            var orderTotal = Convert.ToDecimal(0);
+            foreach (var cartItem in cartItems)
+            {
+                var detail = new OrderDetailsModel();
+                var album = repository.GetAlbum(cartItem.AlbumId);
+                detail.Album = new AlbumModel
+                {
+                    Title = album.Title,
+                    Price = album.Price
+                };
+                detail.Quantity = cartItem.Quantity;
+                detail.ItemSubtotal = album.Price*cartItem.Quantity;
+                orderDetails.Add(detail);
+                orderTotal += album.Price * cartItem.Quantity;
+            }
+            model.OrderDetails = orderDetails;
+            ViewBag.OrderTotal = orderTotal;
+            return View(model);
         }
 
         public JsonResult AddToCart(Guid id, int quantity)
@@ -46,11 +67,13 @@ namespace CoreDemoApp.Controllers
         {
             byte[] bytes;
             var ret = HttpContext.Session.TryGetValue("cartItems", out bytes);
+
+            var cartItems = new List<CartItemModel>();
             if (ret)
             {
-                return BusinessMethods.SerializationLogic<List<CartItemModel>>.Deserialize(bytes);
+                cartItems =  BusinessMethods.SerializationLogic<List<CartItemModel>>.Deserialize(bytes);
             }
-            return new List<CartItemModel>();
+            return cartItems;
 
         }
     }

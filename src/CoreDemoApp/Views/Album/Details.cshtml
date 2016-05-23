@@ -15,7 +15,8 @@
     Quantity - <select asp-for="Quantity" asp-items="ViewBag.QuantitySelectList"></select>
     <a id="AddToCart" href="#">Add To Cart</a>
 </div>
-<input type="hidden" id="Id" value="@Model.AlbumId" />
+<input type="hidden" id="Id" value="@Model.AlbumId"/>
+<a asp-controller="Album" asp-action="Index">Back to List</a>
 
 @section scripts{
     <script>
