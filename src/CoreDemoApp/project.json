@@ -2,8 +2,8 @@
   "userSecretsId": "aspnet-CoreDemoApp-937cb3a0-ce31-4994-aa96-42c60381f00f",
 
   "dependencies": {
-    "Microsoft.AspNetCore.Session": "1.0.0-*",
-    "Microsoft.Extensions.Caching.Memory": "1.0.0-*",
+    "Microsoft.AspNetCore.Session": "1.0.0-rc2-final",
+    "Microsoft.Extensions.Caching.Memory": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0-rc2-final",
