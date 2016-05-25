@@ -27,7 +27,6 @@ namespace CoreDemoApp.Controllers
                     Price = album.Price
                 };
                 detail.Quantity = cartItem.Quantity;
-                detail.ItemSubtotal = album.Price*cartItem.Quantity;
                 orderDetails.Add(detail);
                 orderTotal += album.Price * cartItem.Quantity;
             }
@@ -41,11 +40,7 @@ namespace CoreDemoApp.Controllers
             var cartItem = new CartItemModel { AlbumId = id, Quantity = quantity };
             var cartItems = AddCartItem(cartItem);
             PutCartItemsInSession(cartItems);
-            var numberItems = 0;
-            foreach (var c in cartItems)
-            {
-                numberItems += c.Quantity;
-            }
+            var numberItems = cartItems.Count;
             return Json(new { cartItemNumber = numberItems });
         }
 

@@ -11,6 +11,5 @@ namespace CoreDemoApp.Models
         public int OrderId { get; set; }
         public AlbumModel Album { get; set; }
         public int Quantity { get; set; }
-        public decimal ItemSubtotal { get; set; }
     }
 }

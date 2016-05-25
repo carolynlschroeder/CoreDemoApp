@@ -14,12 +14,12 @@
             if (ret)
             {
                 var cartItems =  CoreDemoApp.BusinessMethods.SerializationLogic<List<CartItemModel>>.Deserialize(bytes);
-                cartItemCount = cartItems.Sum(c => c.Quantity);
+                cartItemCount = cartItems.Count;
             }
         }
         <div>
             <div id="NumberOfItems" style="float: left">
-                @String.Format("Number of Items: {0}", @cartItemCount)&nbsp;
+              @($"Number of Items: {@cartItemCount}")&nbsp;
             </div>
             <div style="float: right">
                 <a asp-controller="Order" asp-action="Index">View Cart</a>
